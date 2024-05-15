@@ -1,13 +1,15 @@
-function getCurrentTime() {
-  const time = new Date();
-  const hour = time.getHours().toString().padStart(2, "0");
-  const minute = time.getMinutes().toString().padStart(2, "0");
-  const second = time.getSeconds().toString().padStart(2, "0");
-  return {
-    hour,
-    minute,
-    second,
-  };
+function currentTime() {
+  let time = new Date();
+  let hour = time.getHours();
+  let minute = time.getMinutes();
+  let second = time.getSeconds();
+  return [
+    {
+      hour: hour,
+      minute: minute,
+      second: second,
+    },
+  ];
 }
 
-export default getCurrentTime;
+export default currentTime;

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import currentTime from "./CurrentTime";
+import ToDoItem from "./ToDoItems";
 
 function App() {
   const [todo, setTodo] = useState("");
@@ -51,7 +52,7 @@ function App() {
       <div>
         <ul>
           {todos.map((item, index) => (
-            <li key={index}> {item}</li>
+            <ToDoItem key={index} text={item} />
           ))}
         </ul>
       </div>
