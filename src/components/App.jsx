@@ -1,69 +1,37 @@
 import React, { useState } from "react";
-import currentTime from "./CurrentTime";
-import ToDoItem from "./ToDoItems";
+import ToDoItem from "./ToDoItem";
+import InputArea from "./InputArea";
 
 function App() {
-  const [todo, setTodo] = useState("");
-  const [todos, setTodos] = useState([]);
-  const [currentDateTime, setCurrentDateTime] = useState(currentTime());
+  const [items, setItems] = useState([]);
 
-  function handleChange(event) {
-    setTodo(event.target.value);
-  }
-
-  function createTodo(event) {
-    if (todo !== "") {
-      setTodos((prevTodos) => {
-        const newTodos = [...prevTodos, todo];
-        setTodo("");
-        console.log(newTodos);
-        return newTodos;
-      });
-    }
+  function addItem(inputText) {
+    setItems((prevItems) => {
+      return [...prevItems, inputText];
+    });
   }
 
   function deleteItem(id) {
-    setTodos((prevTodos) => {
-      return prevTodos.filter((item, index) => {
+    setItems((prevItems) => {
+      return prevItems.filter((item, index) => {
         return index !== id;
       });
     });
   }
 
-  function updateTime() {
-    setCurrentDateTime(currentTime());
-  }
-
-  setInterval(() => {
-    updateTime();
-  }, 1000);
-
   return (
     <div className="container">
-      <div className="time">
-        {currentDateTime.hour}:{currentDateTime.minute}:{currentDateTime.second}
-      </div>
       <div className="heading">
         <h1>To-Do List</h1>
       </div>
-      <div className="form">
-        <input
-          type="text"
-          placeholder="To Do"
-          value={todo}
-          onChange={handleChange}
-        />
-        <button type="submit" onClick={createTodo}>
-          <span>Add</span>
-        </button>
-      </div>
+      <InputArea onAdd={addItem} />
       <div>
         <ul>
-          {todos.map((item, index) => (
+          {items.map((todoItem, index) => (
             <ToDoItem
               key={index}
               id={index}
-              text={item}
+              text={todoItem}
               onChecked={deleteItem}
             />
           ))}
