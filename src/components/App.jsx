@@ -9,17 +9,25 @@ function App() {
 
   function handleChange(event) {
     setTodo(event.target.value);
-    console.log(event.target.value);
   }
 
   function createTodo(event) {
     if (todo !== "") {
       setTodos((prevTodos) => {
         const newTodos = [...prevTodos, todo];
+        setTodo("");
         console.log(newTodos);
         return newTodos;
       });
     }
+  }
+
+  function deleteItem(id) {
+    setTodos((prevTodos) => {
+      return prevTodos.filter((item, index) => {
+        return index !== id;
+      });
+    });
   }
 
   function updateTime() {
@@ -52,7 +60,12 @@ function App() {
       <div>
         <ul>
           {todos.map((item, index) => (
-            <ToDoItem key={index} text={item} />
+            <ToDoItem
+              key={index}
+              id={index}
+              text={item}
+              onChecked={deleteItem}
+            />
           ))}
         </ul>
       </div>

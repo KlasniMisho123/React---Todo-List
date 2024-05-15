@@ -9,10 +9,12 @@ function ToDoItem(props) {
   }
 
   return (
-    <div onClick={handleClick}>
-      <li style={{ textDecoration: isDone ? "line-through" : "none" }}>
-        {props.text}{" "}
-      </li>
+    <div
+      onClick={() => {
+        props.onChecked(props.id);
+      }}
+    >
+      <li>{props.text}</li>
     </div>
   );
 }
